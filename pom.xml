@@ -83,15 +83,34 @@
 				<groupId>org.apache.activemq</groupId>
 				<artifactId>activemq-client</artifactId>
 				<version>${version.activemq.client}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>geronimo-jms_1.1_spec</artifactId>
+						<groupId>org.apache.geronimo.specs</groupId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.activemq</groupId>
 				<artifactId>activemq-core</artifactId>
 				<version>${version.activemq.core}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>geronimo-jms_1.1_spec</artifactId>
+						<groupId>org.apache.geronimo.specs</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<!-- Modules -->
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<version>${project.version}</version>
+				<artifactId>skullabs-pdf-processor</artifactId>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
+	
 	<dependencies>
 		<!-- Test time dependencies -->
 		<dependency>

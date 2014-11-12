@@ -33,7 +33,8 @@ public class ActiveMQMessageQueueProvider implements MQProvider {
 
 	@Override
 	public QueueConnection createWorkerConnection() throws JMSException {
-		return connectionFactory().createQueueConnection();
+		final ActiveMQConnectionFactory factory = connectionFactory();
+		return factory.createQueueConnection();
 	}
 
 	@Override
