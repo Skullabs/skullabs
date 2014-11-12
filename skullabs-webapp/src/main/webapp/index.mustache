@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>WebSocket Sample</title>
+		<meta charset='utf-8' />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Language" content="en">
+
+		<script>
+			var id = getQueryParam( "id" );
+			var host = document.location.host
+			var websocket = new WebSocket("ws://" + host + "/presention/" + id )
+			var output = null
+
+			websocket.onopen = function(event) {
+				console.log('onopen: ' + event.data)
+			};
+		
+			websocket.onmessage = function(event) {
+				console.log('onmessage: ' + event.data)
+				var p = document.createElement("p")
+				p.appendChild( document.createTextNode( "Received: " + event.data ) )
+				output.appendChild( p )
+			};
+		
+			websocket.onerror = function(event) {
+				console.log('onerror: ' + event.data)
+			};
+			
+			function init(){
+				output = document.getElementById("output")
+			}
+		
+			function send( message ) {
+				if (websocket.readyState === WebSocket.OPEN) {
+					websocket.send(message)
+				} else {
+					console.log("WebSocket is not open.")
+				}
+			}
+			
+
+			function getQueryParam(name) {
+				var winURL = window.location.href
+				var queryStringArray = winURL.split("?")
+				var queryStringParamArray = queryStringArray[1].split("&")
+				var nameValue = null
+
+				for (var i = 0; i < queryStringParamArray.length; i++) {
+					queryStringNameValueArray = queryStringParamArray[i].split("=")
+					if (name == queryStringNameValueArray[0])
+						nameValue = queryStringNameValueArray[1]
+				}
+
+				return nameValue
+			}
+		</script>
+	</head>
+
+	<body onload="init()">
+		<form onsubmit="return false;">
+			<input type="text" name="message" value="Hello World!" />
+			<input type="button" name="button" value="Send WebSocket Message"
+				onclick="send(this.form.message.value)" />
+		</form>
+		<div id="output"></div>
+	</body>
+</html>
