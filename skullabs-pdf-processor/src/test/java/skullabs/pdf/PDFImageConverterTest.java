@@ -16,7 +16,7 @@ import trip.spi.Provided;
 import trip.spi.ServiceProvider;
 import uworkers.api.EndpointConnection;
 import uworkers.api.Worker;
-import uworkers.api.WorkerService;
+import uworkers.api.UWorkerService;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.typesafe.config.Config;
@@ -48,7 +48,7 @@ public class PDFImageConverterTest {
 	@Before
 	@SneakyThrows
 	public void provideDependencies() {
-		final WorkerService workerService = WorkerService.newInstance();
+		final UWorkerService workerService = UWorkerService.newInstance();
 		final ServiceProvider provider = workerService.provider();
 		final Config config = workerService.workerConfiguration().getMergeableConfig();
 		provider.providerFor( Config.class, config );
