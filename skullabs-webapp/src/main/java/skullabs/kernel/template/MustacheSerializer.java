@@ -1,5 +1,6 @@
 package skullabs.kernel.template;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -27,7 +28,7 @@ import com.samskivert.mustache.Template;
 @Singleton( name = Mimes.HTML, exposedAs = Serializer.class )
 public class MustacheSerializer implements Serializer {
 
-	final Compiler compiler = Mustache.compiler();
+	final Compiler compiler = createMustacheCompiler();
 	final Map<String, Template> cachedTemplates = new HashMap<>();
 
 	@Getter( lazy = true )
@@ -38,6 +39,14 @@ public class MustacheSerializer implements Serializer {
 
 	@Provided
 	Configuration configuration;
+
+	Compiler createMustacheCompiler() {
+		return Mustache.compiler().withLoader(
+			name -> {
+				final File file = new File( formatFileName( name ) );
+				return new FileReader( file );
+			} );
+	}
 
 	@Override
 	public <T> void serialize( final T object, final OutputStream output )
@@ -87,10 +96,12 @@ public class MustacheSerializer implements Serializer {
 		}
 	}
 
-	private String formatFileName( final String originalTemplateName ) {
-		final String prefix = originalTemplateName.charAt( 0 ) == '/' ? ""
-			: configuration.resourcesPath();
-		final String templateName = prefix + "/" + originalTemplateName;
+	String formatFileName( final String originalTemplateName ) {
+		final String prefix = originalTemplateName.charAt( 0 ) == '/'
+			? "" : configuration.resourcesPath();
+		final String sufix = originalTemplateName.endsWith( ".mustache" )
+			? "" : ".mustache";
+		final String templateName = prefix + "/" + originalTemplateName + sufix;
 		return templateName;
 	}
 

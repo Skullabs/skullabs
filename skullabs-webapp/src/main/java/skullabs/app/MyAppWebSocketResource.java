@@ -19,7 +19,7 @@ import trip.spi.Singleton;
 import com.hazelcast.core.MultiMap;
 
 @Singleton
-@WebSocket( "presention/{id}" )
+@WebSocket( "presention/stream/{id}" )
 public class MyAppWebSocketResource {
 
 	@Provided

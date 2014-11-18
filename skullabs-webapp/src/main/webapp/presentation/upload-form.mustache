@@ -1,0 +1,27 @@
+{{> assets/header}}
+{{> assets/scripts}}
+	<script type="text/javascript" src="/assets/socket.js" ></script>
+	<script type="text/javascript" src="/presentation/upload-form.jss?id={{identifier}}" ></script>
+{{> assets/body-start}}
+
+	<form class="pure-form pure-form-stacked upload-form"
+		  action="/presentation/new/" method="post"
+		  enctype="multipart/form-data">
+		<fieldset>
+			<legend>New presentation</legend>
+			<input type="text" name="title" placeholder="Presentation Title" />
+			<input type="file" name="filename" placeholder="Presentation File" accept=".pdf" />
+			<input type="submit" class="pure-button pure-button-primary" value="Submit" />
+		</fieldset>
+	</form>
+	
+	<div class="detailed-view">
+		<h2>{{title}}</h2>
+		<img src="/assets/progress_bar.gif" />
+
+		<ul class="slides">
+		</ul>
+
+	</div>
+
+{{> assets/body-end}}

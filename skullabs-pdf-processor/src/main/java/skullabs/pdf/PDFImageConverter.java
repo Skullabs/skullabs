@@ -29,19 +29,19 @@ public class PDFImageConverter {
 	private final String outputdir = config.getString( "skul.images-dir" );
 
 	@Provided
-	PDFImageRepository repository;
+	PresentationRepository repository;
 
 	@Provided
 	Config config;
 
 	/**
-	 * Convert a {@link PDF} pages into PNG images.
+	 * Convert a {@link PDFProcessJob} pages into PNG images.
 	 *
 	 * @param pdf
 	 * @throws IOException
 	 */
-	@Worker( name = "presentation-images" )
-	public void convert( final PDF pdf ) throws IOException {
+	@Worker( name = "pdf-pages-processor" )
+	public void convert( final PDFProcessJob pdf ) throws IOException {
 		val file = new File( pdf.getFileName() );
 		convert( pdf.getIdentifier(), file );
 	}
@@ -54,7 +54,7 @@ public class PDFImageConverter {
 	 * @throws IOException
 	 */
 	@SuppressWarnings( { "unchecked", "rawtypes" } )
-	public void convert( final long identifier, final File pdfFile ) throws IOException
+	void convert( final long identifier, final File pdfFile ) throws IOException
 	{
 		@Cleanup val pdf = PDDocument.loadNonSeq( pdfFile, null );
 		val allPages = pdf.getDocumentCatalog().getAllPages();
@@ -71,7 +71,6 @@ public class PDFImageConverter {
 		void convert() throws FileNotFoundException, IOException {
 			try {
 				int pageNumber = 0;
-				repository.startProcessingPDF( identifier );
 				for ( val page : allPages ) {
 					val imageName = convertToImage( page, identifier, pageNumber++ );
 					repository.storeImageForPDF( identifier, imageName );

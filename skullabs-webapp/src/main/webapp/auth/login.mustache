@@ -1,25 +1,19 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Login</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css" />
-		<link rel="stylesheet" href="/assets/theme.css" />
-		<link rel="stylesheet" href="/assets/views.css" />
-	</head>
-	<body class="view-login">
-		<div class="theme-container">
-			<form class="pure-form pure-form-stacked" method="post" action="/j_security_check">
-				<fieldset>
-					<legend>Por favor, identifique-se:</legend>
-					<input type="text" name="j_username" placeholder="Username" />
-					<input type="password" name="j_password" placeholder="Password" />
-					<input type="submit" class="pure-button pure-button-primary" value="Login" />
-				</fieldset>
-				<p>Não possui uma conta?
-					<a href="/auth/user-new.do">Crie uma</a> agora mesmo!</p>
-			</form>
-		</div>
-	</body>
-</html>
+{{> assets/header}}
+{{> assets/body-start}}
+
+	<div class="view-login">
+		<form class="pure-form pure-form-stacked" method="post" action="/j_security_check">
+
+			<fieldset>
+				<legend>Por favor, identifique-se:</legend>
+				<input type="text" name="j_username" placeholder="Username" />
+				<input type="password" name="j_password" placeholder="Password" />
+				<input type="submit" class="pure-button pure-button-primary" value="Login" />
+			</fieldset>
+
+			<p>Não possui uma conta?
+				<a href="/auth/user-new.do">Crie uma</a> agora mesmo!</p>
+		</form>
+	</div>
+
+{{> assets/body-end}}

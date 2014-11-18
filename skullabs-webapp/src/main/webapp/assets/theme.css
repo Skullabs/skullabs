@@ -24,6 +24,8 @@
 	width: 100%;
 }
 
+.theme-hidden { display: none; }
+
 /* size alignment for: ≥ 568px */
 @media screen and (min-width: 35.5em) {
 	.theme-container {

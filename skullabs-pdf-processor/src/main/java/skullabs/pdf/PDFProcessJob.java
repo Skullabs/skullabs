@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class PDF {
+public class PDFProcessJob {
 
 	@NonNull
 	Long identifier;

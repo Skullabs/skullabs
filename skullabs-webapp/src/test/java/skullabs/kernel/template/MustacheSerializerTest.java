@@ -22,8 +22,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import skullabs.kernel.User;
-import skullabs.kernel.template.MustacheResponse;
-import skullabs.kernel.template.MustacheSerializer;
 import trip.spi.Provided;
 import trip.spi.ServiceProvider;
 
@@ -60,14 +58,14 @@ public class MustacheSerializerTest {
 		val output = new StringWriter();
 		serializer.serialize( response.entity(), output );
 		assertThat( output.toString(), is( "<h1>Hello Poppins</h1>" ) );
-		verify( serializer ).getCachedTemplate( eq( "sample.template" ) );
+		verify( serializer ).getCachedTemplate( eq( "sample" ) );
 	}
 
 	MustacheResponse readSimulatedResponse() {
 		val user = new User();
 		user.setName( "Poppins" );
 		val response = MustacheResponse.ok()
-			.templateName( "sample.template" )
+			.templateName( "sample" )
 			.paramObject( user );
 		return response;
 	}
