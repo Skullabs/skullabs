@@ -1,0 +1,15 @@
+.detailed-view .slides {
+	margin: 0px;
+	padding: 0px;
+	border: 1px solid #dedede;
+	width: 480px;
+	height: 320px;
+}
+.detailed-view .slides li {
+	margin: 0px;
+	padding: 0px;
+	width: 480px;
+	height: 320px;
+	overflow: hidden;
+}
+.detailed-view .slides img { width: 100%; }

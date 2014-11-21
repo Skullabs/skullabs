@@ -28,7 +28,6 @@
 
 	<modules>
 		<module>skullabs-webapp</module>
-		<module>skullabs-pdf-processor</module>
 	</modules>
 
 	<dependencyManagement>
@@ -102,12 +101,13 @@
 				</exclusions>
 			</dependency>
 
-			<!-- Modules -->
+			<!-- Modules
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<version>${project.version}</version>
 				<artifactId>skullabs-pdf-processor</artifactId>
 			</dependency>
+			 -->
 		</dependencies>
 	</dependencyManagement>
 	

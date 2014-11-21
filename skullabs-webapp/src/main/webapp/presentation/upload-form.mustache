@@ -1,7 +1,8 @@
 {{> assets/header}}
 {{> assets/scripts}}
 	<script type="text/javascript" src="/assets/socket.js" ></script>
-	<script type="text/javascript" src="/presentation/upload-form.jss?id={{identifier}}" ></script>
+	<script type="text/javascript" src="/presentation/upload-form.jss?id={{identifier}}&processing={{processing}}" ></script>
+	<link rel="stylesheet" href="/presentation/upload-form.css" />
 {{> assets/body-start}}
 
 	<form class="pure-form pure-form-stacked upload-form"
@@ -14,14 +15,15 @@
 			<input type="submit" class="pure-button pure-button-primary" value="Submit" />
 		</fieldset>
 	</form>
-	
+
 	<div class="detailed-view">
 		<h2>{{title}}</h2>
-		<img src="/assets/progress_bar.gif" />
-
+		<img class="loading-bar" src="/assets/progress_bar.gif" />
 		<ul class="slides">
+			{{#slides}}
+			<li><img src="/images/{{identifier}}/{{.}}.png" /></li>
+			{{/slides}}
 		</ul>
-
 	</div>
 
 {{> assets/body-end}}

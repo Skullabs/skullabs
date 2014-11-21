@@ -31,8 +31,24 @@
 			<artifactId>kikaha-hazelcast</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>skullabs-pdf-processor</artifactId>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.uworkers</groupId>
+			<artifactId>uworkers</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.uworkers</groupId>
+			<artifactId>uworkers-processor</artifactId>
 		</dependency>
 	</dependencies>
 

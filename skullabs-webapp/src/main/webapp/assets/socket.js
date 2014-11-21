@@ -3,8 +3,9 @@ window.Socket = (function(){
 	function Socket( endpoint ) {
 
 		var listeners = {
+			close: [],
 			error: [],
-			messages: [],
+			message: [],
 			open: []
 		}
 
@@ -12,8 +13,9 @@ window.Socket = (function(){
 			listeners[ eventType ].push( callback )
 			return this
 		}
-		
+
 		function dispatch( eventType, event ) {
+			console.log( "Socket: dispatching " + eventType )
 			var callbacks = listeners[eventType]
 			for ( var i=0; i<callbacks.length; i++ )
 				callbacks[i]( event )

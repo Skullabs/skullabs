@@ -1,25 +1,39 @@
 $(function(){
 	
+	var UPLOAD_PROCESSING_URL = "presention/upload/status/{{id}}"
 	var id = {{id}}
-	var view = {
+	var processing = {{processing}}
 
-		/**
-		 * Show detailed view
-		 */
+	var view = observable({
+
 		showDetailedView: observable( ".detailed-view" ).visible( id != 0 ),
 
-		/**
-		 * Show upload form
-		 */
-		showUploadForm: observable( ".upload-form" ).visible( id == 0 )
+		showUploadForm: observable( ".upload-form" ).visible( id == 0 ),
 
-	}
+		showUploadLoadingBar: observable( ".detailed-view .loading-bar" ).visible( processing ),
 
-	observable(view)
+		showSlides: observable( ".detailed-view .slides" ).visible( !processing ),
 
-	var websocket = new Socket( "/presentation/stream/upload/{{id}}" )
-	websocket.on( "message", function( e ){
-		if ( e.data == "done" )
-			;
+		waitForPDFProcessing: function(){
+			var websocket = new Socket( UPLOAD_PROCESSING_URL )
+			websocket
+				.on( "message", function( e ){
+					if ( e.data == "done" ) {
+						view.showUploadLoadingBar( false )
+						view.showSlides( true )
+					}
+				})
+				.on( "close", function( e ) {
+					console.log( e )
+					console.log( e.data )
+				} )
+		},
+
+		start: function(){
+			if ( processing )
+				this.waitForPDFProcessing()
+		}
 	})
+
+	view.start()
 })
