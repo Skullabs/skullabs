@@ -1,4 +1,4 @@
-package skullabs.web.kernel;
+package skullabs.kernel;
 
 import kikaha.core.api.DeploymentContext;
 import kikaha.core.api.DeploymentHook;

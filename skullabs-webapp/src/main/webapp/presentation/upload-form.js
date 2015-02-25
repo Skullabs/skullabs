@@ -3,35 +3,67 @@ $(function(){
 	var UPLOAD_PROCESSING_URL = "presention/upload/status/{{id}}"
 	var id = {{id}}
 	var processing = {{processing}}
+	var numberOfSlides = {{numberOfSlides}}
 
 	var view = observable({
 
-		showDetailedView: observable( ".detailed-view" ).visible( id != 0 ),
+		formValues: select( "form" ).bindNames(),
 
-		showUploadForm: observable( ".upload-form" ).visible( id == 0 ),
+		formValidation: select( "form" ).formValidation([
+			"#title",{
+				element: "#uploadField",
+				message: "Please select a PDF file.",
+				required: function(){
+					return !numberOfSlides && this.formValues().showSlides()
+				}
+		}]),
 
-		showUploadLoadingBar: observable( ".detailed-view .loading-bar" ).visible( processing ),
+		showFormBlankSlate: select( ".slide-blank-slate-form" ).visible( id == 0 ),
 
-		showSlides: observable( ".detailed-view .slides" ).visible( !processing ),
+		showSlidePanel: select( ".slides-panel" ).visible( processing || numberOfSlides > 0 ),
+
+		showUploadLoadingBar: select( ".loading-slides" ).visible( processing ),
+
+		showFileUpload: select( "#uploadField" ).visible(),
+
+		showSlides: select( ".slide-player" ).visible( !processing ),
+
+		slidePlayer: select( ".slides-panel .slide-player" ).slides(),
+		
+		onClickShowSlides: select( "#showSlides" ).bind( "click", function( checkbox ){
+			this.fixElementVisibilityRelatedToCheckbox()
+		}),
+
+		uploadSocket: websocket( UPLOAD_PROCESSING_URL )
+			.on( "message", function( e ){
+				if ( e.data.indexOf("done:") >= 0 ) {
+					view.showUploadLoadingBar( false )
+					view.showSlides( true )
+					var numberOfSlides = e.data.split(":")[1]
+					view.updatedNumberOfSlides( numberOfSlides )
+				}
+			}),
 
 		waitForPDFProcessing: function(){
-			var websocket = new Socket( UPLOAD_PROCESSING_URL )
-			websocket
-				.on( "message", function( e ){
-					if ( e.data == "done" ) {
-						view.showUploadLoadingBar( false )
-						view.showSlides( true )
-					}
-				})
-				.on( "close", function( e ) {
-					console.log( e )
-					console.log( e.data )
-				} )
+			this.uploadSocket().start()
+		},
+
+		fixElementVisibilityRelatedToCheckbox: function(){
+			this.showFileUpload( this.formValues().showSlides() )
+		},
+
+		updatedNumberOfSlides: function( num ) {
+			this.slidePlayer().loadSlidesFrom( id, num )
+			this.formValues().numberOfSlides( num )
+			numberOfSlides = num
 		},
 
 		start: function(){
 			if ( processing )
 				this.waitForPDFProcessing()
+			if ( !processing && id > 0 )
+				this.updatedNumberOfSlides( numberOfSlides )
+			this.fixElementVisibilityRelatedToCheckbox()
 		}
 	})
 

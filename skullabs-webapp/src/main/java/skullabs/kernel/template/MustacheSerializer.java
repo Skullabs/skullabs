@@ -1,4 +1,4 @@
-package skullabs.web.kernel.template;
+package skullabs.kernel.template;
 
 import java.io.File;
 import java.io.FileReader;
@@ -14,7 +14,7 @@ import kikaha.core.api.conf.Configuration;
 import kikaha.urouting.api.RoutingException;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import skullabs.web.kernel.InternalErrorException;
+import skullabs.kernel.InternalErrorException;
 import trip.spi.Provided;
 import trip.spi.Singleton;
 
@@ -40,11 +40,15 @@ public class MustacheSerializer {
 	Configuration configuration;
 
 	Compiler createMustacheCompiler() {
-		return Mustache.compiler().withLoader(
-			name -> {
-				final File file = new File( formatFileName( name ) );
-				return new FileReader( file );
-			} );
+		return Mustache
+			.compiler()
+			.emptyStringIsFalse( true )
+			.nullValue( "" )
+			.withLoader(
+				name -> {
+					final File file = new File( formatFileName( name ) );
+					return new FileReader( file );
+				} );
 	}
 
 	public <T> void serialize( final T object, final OutputStream output )

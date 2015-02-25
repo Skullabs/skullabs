@@ -3,6 +3,12 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>io.skullabs.kikaha</groupId>
+		<artifactId>kikaha-project</artifactId>
+		<version>1.3.1</version>
+	</parent>
+
 	<groupId>io.skullabs.app</groupId>
 	<version>1.0-SNAPSHOT</version>
 	<artifactId>skullabs-app</artifactId>
@@ -10,20 +16,12 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<version.jdk>1.8</version.jdk>
 		<!-- Dependencies Version -->
-		<version.junit>4.11</version.junit>
-		<version.lombok>1.14.8</version.lombok>
-		<version.mockito>1.9.5</version.mockito>
-		<version.trip>1.2.0</version.trip>
-		<version.kikaha>1.0.0-SNAPSHOT</version.kikaha>
 		<version.jmustache>1.9</version.jmustache>
 		<version.pdfbox>1.8.7</version.pdfbox>
-		<version.uworkers>0.4.0</version.uworkers>
+		<version.uworkers>0.4.1</version.uworkers>
 		<version.activemq.client>5.9.0</version.activemq.client>
 		<version.activemq.core>5.7.0</version.activemq.core>
-		<!-- Plugins' Version -->
-		<version.maven.plugin>2.3.2</version.maven.plugin>
 	</properties>
 
 	<modules>
@@ -40,43 +38,26 @@
 				<version>${version.jmustache}</version>
 			</dependency>
 
-			<!-- Kikaha -->
-			<dependency>
-				<groupId>io.skullabs.kikaha</groupId>
-				<artifactId>kikaha-core</artifactId>
-				<version>${version.kikaha}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.skullabs.kikaha</groupId>
-				<artifactId>kikaha-urouting</artifactId>
-				<version>${version.kikaha}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.skullabs.kikaha</groupId>
-				<artifactId>kikaha-hazelcast</artifactId>
-				<version>${version.kikaha}</version>
-			</dependency>
-
 			<!-- PDFBox -->
 			<dependency>
 				<groupId>org.apache.pdfbox</groupId>
 				<artifactId>pdfbox</artifactId>
 				<version>${version.pdfbox}</version>
 			</dependency>
-			
+
 			<!-- uWorkers -->
 			<dependency>
-				<groupId>io.uworkers</groupId>
+				<groupId>io.skullabs.uworkers</groupId>
 				<version>${version.uworkers}</version>
 				<artifactId>uworkers</artifactId>
 			</dependency>
 			<dependency>
-				<groupId>io.uworkers</groupId>
+				<groupId>io.skullabs.uworkers</groupId>
 				<version>${version.uworkers}</version>
 				<artifactId>uworkers-processor</artifactId>
 				<scope>provided</scope>
 			</dependency>
-			
+
 			<!-- ActiveMQ -->
 			<dependency>
 				<groupId>org.apache.activemq</groupId>
@@ -100,123 +81,7 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-
-			<!-- Modules
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<version>${project.version}</version>
-				<artifactId>skullabs-pdf-processor</artifactId>
-			</dependency>
-			 -->
 		</dependencies>
 	</dependencyManagement>
-	
-	<dependencies>
-		<!-- Test time dependencies -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${version.junit}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>${version.mockito}</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- Compile time dependencies -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>${version.lombok}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.skullabs.trip</groupId>
-			<artifactId>trip-processor</artifactId>
-			<version>${version.trip}</version>
-			<scope>provided</scope>
-		</dependency>
-		<!-- Runtime dependencies -->
-		<dependency>
-			<groupId>io.skullabs.trip</groupId>
-			<artifactId>trip-core</artifactId>
-			<version>${version.trip}</version>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>io.skullabs.kikaha</groupId>
-				<artifactId>kikaha-maven-plugin</artifactId>
-				<version>${version.kikaha}</version>
-			</plugin>
-			<plugin>
-				<inherited>true</inherited>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${version.maven.plugin}</version>
-				<configuration>
-					<source>${version.jdk}</source>
-					<target>${version.jdk}</target>
-					<optimize>false</optimize>
-					<debug>true</debug>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
-	<repositories>
-		<repository>
-			<id>skullabs-release-repository</id>
-			<name>Skullabs Release Repository</name>
-			<url>http://skullabs.io:8081/content/repositories/PublicRelease/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>skullabs-snapshot-repository</id>
-			<name>Skullabs Snapshot Repository</name>
-			<url>http://skullabs.io:8081/content/repositories/PublicSnapshot/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>skullabs-release-repository</id>
-			<name>Skullabs Release Repository</name>
-			<url>http://skullabs.io:8081/content/repositories/PublicRelease/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>skullabs-snapshot-repository</id>
-			<name>Skullabs Snapshot Repository</name>
-			<url>http://skullabs.io:8081/content/repositories/PublicSnapshot/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
 
 </project>

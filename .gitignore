@@ -8,6 +8,7 @@ faces-config.xml
 .DS_Store
 .cache
 .factorypath
+.idea
 activemq-data
 uploads
 skullabs-webapp/src/main/webapp/presentation/images

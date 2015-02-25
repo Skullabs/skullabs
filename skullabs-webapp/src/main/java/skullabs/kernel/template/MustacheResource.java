@@ -1,4 +1,4 @@
-package skullabs.web.kernel.template;
+package skullabs.kernel.template;
 
 import io.undertow.server.HttpServerExchange;
 
@@ -44,7 +44,6 @@ public class MustacheResource {
 		@PathParam( "templatePath" ) final String templatePath )
 	{
 		final Map<String, String> params = convertQueryParametersToFlatMap( exchange );
-		System.out.println( "TEMPLATEPATH: " + templatePath );
 		return MustacheResponse.ok()
 			.templateName( templatePath + ".js" )
 			.paramObject( params )

@@ -43,11 +43,11 @@
 			<artifactId>pdfbox</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.uworkers</groupId>
+			<groupId>io.skullabs.uworkers</groupId>
 			<artifactId>uworkers</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.uworkers</groupId>
+			<groupId>io.skullabs.uworkers</groupId>
 			<artifactId>uworkers-processor</artifactId>
 		</dependency>
 	</dependencies>

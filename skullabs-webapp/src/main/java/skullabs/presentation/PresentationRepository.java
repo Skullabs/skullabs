@@ -6,6 +6,7 @@ import java.util.function.BiConsumer;
 import javax.jms.JMSException;
 
 import kikaha.hazelcast.Source;
+import lombok.val;
 import lombok.extern.java.Log;
 import skullabs.commons.Executor;
 import skullabs.commons.UpdatedEntryListener;
@@ -37,9 +38,13 @@ public class PresentationRepository {
 
 	public void create( final Presentation presentation, final String fileName ) {
 		try {
+			val shouldProcess = fileName != null;
+			presentation.setProcessing( shouldProcess );
 			store( presentation );
-			final PDFProcessJob job = new PDFProcessJob( presentation.getIdentifier(), fileName );
-			pdfConverter.send( job );
+			if ( shouldProcess ) {
+				final PDFProcessJob job = new PDFProcessJob( presentation.getIdentifier(), fileName );
+				pdfConverter.send( job );
+			}
 		} catch ( JMSException | IOException e ) {
 			log.severe( e.getMessage() );
 			throw new RuntimeException( e );
@@ -68,7 +73,7 @@ public class PresentationRepository {
 	 * @param callback
 	 */
 	public void notifyWhenFinishProcessing( final Presentation presentation, final BiConsumer<Long, Presentation> callback ) {
-		final Long identifier = presentation.getIdentifier();
+		val identifier = presentation.getIdentifier();
 		notifyWhenFinishProcessing( identifier, callback );
 	}
 
@@ -77,7 +82,7 @@ public class PresentationRepository {
 	 * @param callback
 	 */
 	public void notifyWhenFinishProcessing( final Long presentationIdentifier, final BiConsumer<Long, Presentation> callback ) {
-		final Presentation presentation = retrieve( presentationIdentifier );
+		val presentation = retrieve( presentationIdentifier );
 		if ( presentation != null && !presentation.isProcessing() ) {
 			callback.accept( presentationIdentifier, presentation );
 			return;
@@ -85,6 +90,7 @@ public class PresentationRepository {
 
 		UpdatedEntryListener.listenOnce( presentations )
 			.forKey( presentationIdentifier )
+			.includeValue( true )
 			.then( callback );
 	}
 }

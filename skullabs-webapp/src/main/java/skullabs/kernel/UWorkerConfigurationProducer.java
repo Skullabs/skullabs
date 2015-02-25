@@ -1,4 +1,4 @@
-package skullabs.web.kernel;
+package skullabs.kernel;
 
 import lombok.Getter;
 import trip.spi.Producer;

@@ -3,10 +3,8 @@ package skullabs.presentation;
 import java.io.Serializable;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import skullabs.commons.IntegerGenerator;
 
 @Data
 @RequiredArgsConstructor
@@ -14,23 +12,45 @@ public class Presentation implements Serializable {
 
 	private static final long serialVersionUID = 467441129274697607L;
 
-	@Getter( lazy = true )
-	private final transient IntegerGenerator slides =
-		new IntegerGenerator( numberOfSlides );
-
 	final Long identifier;
 	@NonNull String title;
+	@NonNull String description;
 
+	Boolean showVideo;
+	Boolean showSlides;
 	boolean processing;
-	int numberOfSlides;
+	Integer numberOfSlides = 0;
 
-	public Presentation( final String title ) {
+	public Presentation( final String title, final String description ) {
 		this.identifier = System.nanoTime();
 		this.processing = true;
 		this.title = title;
+		this.description = description;
+	}
+
+	public void setShowVideo( final Boolean showVideo ) {
+		if ( showVideo != null )
+			this.showVideo = showVideo;
+	}
+
+	public void setShowSlides( final Boolean showSlides ) {
+		if ( showSlides != null )
+			this.showSlides = showSlides;
+	}
+
+	public String getShowVideo() {
+		return asCheckboxString( showVideo );
+	}
+
+	public String getShowSlides() {
+		return asCheckboxString( showSlides );
+	}
+
+	String asCheckboxString( final Boolean value ) {
+		return value != null && value ? "checked" : "";
 	}
 
 	public static Presentation empty() {
-		return new Presentation( 0l, "" );
+		return new Presentation( 0l, "", "" );
 	}
 }

@@ -1,4 +1,4 @@
-package skullabs.web.kernel.template;
+package skullabs.kernel.template;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -20,9 +20,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import skullabs.web.kernel.User;
-import skullabs.web.kernel.template.MustacheResponse;
-import skullabs.web.kernel.template.MustacheSerializer;
+import skullabs.kernel.User;
+import skullabs.kernel.template.MustacheResponse;
+import skullabs.kernel.template.MustacheSerializer;
 import trip.spi.Provided;
 import trip.spi.ServiceProvider;
 

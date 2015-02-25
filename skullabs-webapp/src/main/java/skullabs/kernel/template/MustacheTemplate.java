@@ -1,4 +1,4 @@
-package skullabs.web.kernel.template;
+package skullabs.kernel.template;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

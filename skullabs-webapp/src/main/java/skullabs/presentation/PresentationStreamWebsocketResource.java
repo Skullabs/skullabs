@@ -1,4 +1,4 @@
-package skullabs.presentation.web;
+package skullabs.presentation;
 
 import io.undertow.websockets.core.CloseMessage;
 
@@ -20,7 +20,7 @@ import com.hazelcast.core.MultiMap;
 
 @Singleton
 @WebSocket( "presention/stream/{id}" )
-public class MyAppWebSocketResource {
+public class PresentationStreamWebsocketResource {
 
 	@Provided
 	@Source( "app-messages" )

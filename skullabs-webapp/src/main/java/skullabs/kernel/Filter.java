@@ -1,4 +1,4 @@
-package skullabs.web.kernel;
+package skullabs.kernel;
 
 public class Filter {
 

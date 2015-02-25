@@ -1,0 +1,27 @@
+	<script src='//static.opentok.com/webrtc/v2.2/js/opentok.min.js'></script>
+	<script type="text/javascript">
+		$(function(){
+
+			var apiKey = 45123142;
+			var sessionId = '1_MX40NTEyMzE0Mn5-MTQyMDU2NjUzNjM0MH5ZYmZmN2QrTjFJc09yQ0NjbWVOTmxkTkd-fg';
+			var session = OT.initSession(apiKey, sessionId);
+
+			var token = 'T1==cGFydG5lcl9pZD00NTEyMzE0MiZzaWc9NDFlOWExZjllZDZlZTQ0MDZlMmVmN2NmMTg5NWE2MzNlNmVlODRmYzpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTFfTVg0ME5URXlNekUwTW41LU1UUXlNRFUyTmpVek5qTTBNSDVaWW1abU4yUXJUakZKYzA5eVEwTmpiV1ZPVG14a1RrZC1mZyZjcmVhdGVfdGltZT0xNDIwNTY3MjA1Jm5vbmNlPTAuOTk2NDE2MDIyNzI2Nzc1Nw==';
+			session.on({
+				streamCreated: function(event) { 
+					session.subscribe(event.stream, 'subscriberVideoPlayer'); // , {insertMode: 'append'}
+				}
+			})
+			session.connect(token, function(error) {
+				if (error) {
+					console.log(error.message);
+				} else {
+					session.publish('videoPlayer', {width: 320, height: 240});
+				}
+			});
+		})
+	</script>
+	<style>
+	#subscriberVideoPlayer { border: 2px solid red; }
+	#videoPlayer { border: 2px solid blue; }
+	</style>

@@ -40,7 +40,7 @@ public class PDFImageConverterTest {
 	public void ensureThatHaveGenerateImagesFromAlreadyKnownPDF() {
 		final CountDownLatch counter = new CountDownLatch( 1 );
 		final String fileName = "src/test/resources/bacon-garbage.pdf";
-		final Presentation presentation = new Presentation( "Sample" );
+		final Presentation presentation = new Presentation( "Sample", "Sample Description" );
 
 		repository.notifyWhenFinishProcessing( presentation, ( id, p ) -> counter.countDown() );
 		repository.create( presentation, fileName );

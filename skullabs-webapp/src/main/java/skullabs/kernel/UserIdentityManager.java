@@ -1,4 +1,4 @@
-package skullabs.web.kernel;
+package skullabs.kernel;
 
 import io.undertow.security.idm.Account;
 import kikaha.core.auth.AbstractPasswordBasedIdentityManager;

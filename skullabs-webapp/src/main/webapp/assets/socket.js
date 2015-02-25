@@ -1,12 +1,19 @@
-window.Socket = (function(){
+(function(){
 
 	function Socket( endpoint ) {
 
+		var self = this
 		var listeners = {
 			close: [],
 			error: [],
 			message: [],
 			open: []
+		}
+
+		this.configure = function(){
+			return function(){
+				return self
+			}
 		}
 
 		this.on = function( eventType, callback ){
@@ -18,22 +25,28 @@ window.Socket = (function(){
 			console.log( "Socket: dispatching " + eventType )
 			var callbacks = listeners[eventType]
 			for ( var i=0; i<callbacks.length; i++ )
-				callbacks[i]( event )
+				callbacks[i].call( self, event )
 		}
-		
+
 		function createDispatcherFor( eventType ){
 			return function( event ){
 				dispatch( eventType, event )
 			}
 		}
 		
-		var protocol = document.location.protocol.replace("http", "ws")
-		var host = document.location.host
-		var websocket = new WebSocket( protocol + "//" + host + "/" + endpoint )
-		websocket.onopen = createDispatcherFor( "open" )
-		websocket.onclose = createDispatcherFor( "close" )
-		websocket.onmessage = createDispatcherFor( "message" )
+		this.start = function(){
+			var protocol = document.location.protocol.replace("http", "ws")
+			var host = document.location.host
+			var websocket = new WebSocket( protocol + "//" + host + "/" + endpoint )
+			websocket.onopen = createDispatcherFor( "open" )
+			websocket.onclose = createDispatcherFor( "close" )
+			websocket.onmessage = createDispatcherFor( "message" )
+			return this
+		}
+
 	}
-	
-	return Socket
+
+	window.websocket = function( endpoint ){
+		return new Socket( endpoint )
+	}
 })()

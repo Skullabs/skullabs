@@ -1,29 +1,86 @@
 {{> assets/header}}
+	{{#response.title}}<title>{{response.title}}</title>{{/response.title}}
+	{{^response.title}}<title>New presentation</title>{{/response.title}}
 {{> assets/scripts}}
 	<script type="text/javascript" src="/assets/socket.js" ></script>
-	<script type="text/javascript" src="/presentation/upload-form.jss?id={{identifier}}&processing={{processing}}" ></script>
+	<script type="text/javascript" src="/assets/form.js" ></script>
+	<script type="text/javascript" src="/presentation/simple-slides.js" ></script>
+	<script type="text/javascript" src="/presentation/upload-form.jss?id={{response.identifier}}&processing={{response.processing}}&numberOfSlides={{response.numberOfSlides}}" ></script>
 	<link rel="stylesheet" href="/presentation/upload-form.css" />
 {{> assets/body-start}}
 
-	<form class="pure-form pure-form-stacked upload-form"
-		  action="/presentation/new/" method="post"
-		  enctype="multipart/form-data">
-		<fieldset>
-			<legend>New presentation</legend>
-			<input type="text" name="title" placeholder="Presentation Title" />
-			<input type="file" name="filename" placeholder="Presentation File" accept=".pdf" />
-			<input type="submit" class="pure-button pure-button-primary" value="Submit" />
-		</fieldset>
-	</form>
+	<div class="theme-container">
 
-	<div class="detailed-view">
-		<h2>{{title}}</h2>
-		<img class="loading-bar" src="/assets/progress_bar.gif" />
-		<ul class="slides">
-			{{#slides}}
-			<li><img src="/images/{{identifier}}/{{.}}.png" /></li>
-			{{/slides}}
-		</ul>
+		<div class="slide-blank-slate-form">
+			<img src="/presentation/mugs-pic-wider.jpg" />
+			<p>
+				<b>Start to present new ideas to the world right now.</b> The world is hungry for new ideas.
+				Give one step further: create a new presentation filling form the bellow and start
+				to spread new ideas to change the world.
+			</p>
+		</div>
+
+		<div class="controls">
+			<div class="slides-panel">
+				<div class="slides loading-slides">
+					<img class="loading-bar" src="/assets/progress_bar.gif" />
+				</div>
+
+				<div class="slides slide-player">
+					<ul></ul>
+					<span class="control-left">
+						&lt;&lt;
+					</span>
+					<span class="control-right">
+						&gt;&gt;
+					</span>
+				</div>
+
+				<div id="videoPlayer" class="video-player">Video Player</div>
+				<div id="subscriberVideoPlayer" class="video-player">Waiting transmission</div>
+			</div>
+		</div>
+
+		<form class="pure-form pure-form-aligned theme-form-legend-big upload-form" method="post"
+				  enctype="multipart/form-data">
+
+			<div class="theme-panel">
+				<fieldset>
+					<legend>Tell me about your presentation</legend>
+
+					<div class="pure-control-group">
+						<label>Title</label>
+						<input type="text" id="title" name="title" value="{{response.title}}" placeholder="Presentation title" />
+					</div>
+
+					<div class="pure-control-group">
+						<label>Description</label>
+						<textarea id="description" name="description"
+							placeholder="A short description about you presentation">{{response.description}}</textarea>
+					</div>
+				</fieldset>
+			</div>
+
+			<div class="theme-panel">
+				<fieldset>
+					<legend>Which controls do you want to use?</legend>
+
+					<label class="pure-checkbox">
+						<input type="checkbox" id="showVideo" name="showVideo" value="true" readonly="readonly" {{response.showVideo}} /> Video streams
+					</label>
+
+					<label class="pure-checkbox">
+						<input type="checkbox" id="showSlides" name="showSlides" value="true" readonly="readonly" {{response.showSlides}} /> Slides streams
+					</label>
+
+					<input type="file" id="uploadField" name="filename" placeholder="Presentation File" accept=".pdf" />
+				</fieldset>
+			</div>
+
+			<input type="hidden" name="numberOfSlides" value="{{response.numberOfSlides}}" />
+			<input type="submit" class="pure-button pure-button-primary" value="Save" />
+		</form>
+
 	</div>
 
 {{> assets/body-end}}
