@@ -1,0 +1,283 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>skullabs.io</title>
+<link rel="stylesheet" href="pure-min.css">
+<script src=zepto.min.js></script>
+<script>
+
+	var available_languages = [ 'pt-BR', 'en' ]
+
+	function toggleLanguage( lang ){
+		$('*[lang]').hide()
+		console.log( "Selecting language " + lang )
+		var s = '*[lang="'+lang+'"]'
+		$(s).show()
+	}
+
+	function getCurrentLanguage(){
+		var lang = window.navigator.language || 'en'
+		if ( available_languages.indexOf(lang) < 0 )
+			lang = 'en'
+		return lang
+	}
+
+	$(function(){
+		var lang = getCurrentLanguage()
+		toggleLanguage( lang )
+	})
+</script>
+<link href='https://fonts.googleapis.com/css?family=Offside' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+<!--
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Crimson+Text:400,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Cabin:400,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
+-->
+<style>
+body {
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+}
+
+.body-centered {
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
+	max-width: 1024px;
+}
+
+header {
+	background: url('header-bg.jpg') no-repeat 50% 40%;
+	text-align: center;
+	text-transform: lowercase;
+	color: white;
+}
+
+header ul { display: block; overflow: auto; list-style: none; }
+header ul li { float: right; list-style: none; margin-left: 40px; text-transform: uppercase; }
+header ul li a,
+header ul li a:visited { font-weight: 300; color: white; text-transform: uppercase; }
+header ul li a:hover { text-transform: underline; }
+
+header h1 {
+	margin: 60px 0 0;
+	font-size: 3.5em;
+	line-height: 40px;
+}
+header h2 { margin-top: 0; font-size: 1.5em; }
+header h1 .skul { color: white; }
+header h1 .labs { color: #ccc; }
+header h1 .dotIO { color: white; }
+
+header .overlay {
+	background: rgba(25,25,25,0.6);
+	overflow: auto;
+	padding-bottom: 65px;
+}
+
+header .body-centered { overflow: auto; }
+section { overflow: auto; }
+section > section { margin: 20px 0 10px; }
+
+section h1 {
+	color: #888;
+	display: block;
+	margin: 30px 5px;
+	font-family: 'Offside', cursive;
+	text-align: center;
+}
+
+section .thumbs,
+section .text { float: left; }
+
+section .thumbs { width: 30%; margin: 10px 20px; }
+section .text {
+	max-width: 65%;
+	line-height: 2;
+	text-align: justify;
+}
+
+.call-to-action {
+	background: rgb(28, 184, 65);
+	color: white;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+section.body-centered{ margin-top: 30px; }
+#technologies .thumbs { overflow: auto; width: 350px; height: 350px; margin: 30px; }
+#technologies .thumbs img { float: left; width: 30%; height: 30%; }
+#technologies .text { max-width: 550px; }
+
+#projects {
+	background: url('header-bg.jpg') no-repeat 50% 100%;
+	position: relative;
+	overflow: auto;
+}
+#projects .overlay {
+	background: rgba(25,25,25,0.9);
+	padding: 20px 0 30px;
+}
+#projects section .text {
+	float: none;
+	max-width: 700px;
+	margin: 0 auto;
+	line-height: 1.5;
+}
+#projects h1,
+#projects .text { color: white; }
+#projects h1 .together { color: #ccc; }
+#projects .pure-button { display: table; margin: 30px auto; }
+
+#customers .logos { margin-left: auto; margin-right: auto; display: table; }
+#call-to-action .pure-button { margin: 50px auto; display: table; }
+
+footer { background: url('header-bg.jpg') no-repeat 50% 100%; }
+footer .overlay {
+	text-align: center;
+	color: white;
+	padding: 20px 0;
+	background: rgba(25,25,25,0.8);
+}
+footer p { margin: 0; padding: 0; }
+footer a,
+footer a:visited
+ { color: white; font-weight: bold; text-transform: underline; }
+
+</style>
+</head>
+
+<body>
+
+	<header>
+		<div class="overlay">
+			<div class="body-centered">
+				<ul>
+					<li><a href="http://blog.skullabs.io">Blog</a></li>
+					<li><a href="https://github.com/Skullabs">GitHub</a></li>
+					<li lang="en"><a href="https://skullabs.mobilize.io/">Community</a></li>
+					<li lang="pt-BR"><a href="https://skullabs.mobilize.io/">Comunidade</a></li>
+				</ul>
+
+				<h1 class="blog-title"><span class="skul">skul</span><span class="labs">labs</span><span class="dotIO">.io</span></h1>
+				<h2 lang="pt-BR">Apoiando a iniciativa OpenSource brasileira desde 2012</h2>
+				<h2 lang="en">Supporting brazilian's OpenSource initiative since 2012</h2>
+				<a href="https://skullabs.mobilize.io/sign_in" lang="pt-BR" class="pure-button call-to-action">Faça parte deste time!</a>
+				<a href="https://skullabs.mobilize.io/sign_in" lang="en" class="pure-button call-to-action">Be part of this!</a>
+			</div>
+		</div>
+	</header>
+
+	<section id="details" class="body-centered">
+		<section id="technologies">
+			<h1 lang="pt-BR">Qualquer tecnologia é capaz de mudar o mundo</h1>
+			<h1 lang="en">All technologies can change the world</h1>
+
+			<div class="thumbs">
+				<img src="flat-logo-java.png" />
+				<img src="flat-logo-html5.jpg" />
+				<img src="flat-logo-css3.png" />
+				<img src="flat-logo-nodejs.png" />
+				<img src="flat-logo-golang.png" />
+				<img src="flat-logo-ruby.png" />
+				<img src="flat-logo-php.png" />
+				<img src="flat-logo-scala.png" />
+				<img src="flat-logo-python.png" />
+			</div>
+
+			<div class="text" lang="en">
+				<p>We are a community of o developers that supports developers with real world problems.
+				We have monthly meetups where we discuss software development best practices, practice
+				TDD and SOLID OOP techniques. Some of us have already solved problems on our meetups
+				and made it available as Open Source Software.</p>
+
+				<p>We think is possible to build a better living environment for every people in
+				the world, and we choose to pursuit this dream providing well crafted software to
+				help people to accomplish their diaries tasks. No matter in which technology a software
+				was made, if solves a real world problem, then it is welcome.</p>
+			</div>
+
+			<div class="text" lang="pt-BR">
+				<p>Somos uma comunidade de desenvolvedores de software que apoia outros desenvolvedores
+				com seus problemas do dia a dia. Mensalmente, discutimos boas práticas de desenvolvimento
+				de software, desenvolvimento guiado por testes, orientação a objetos, SOLID, etc... Alguns
+				dos problemas que já resolvemos, eventualmente, foram abertos como software OpenSource.</p>
+
+				<p>O ponto é que realmente acreditamos que é possivel criar melhores condições de vida para
+				todos através da tecnologia. E, de fato, decidimos perseguir este sonho criando softwares
+				bem feitos para ajudar as pessoas a cumprirem suas tarefas diarias. Não importa em qual seja
+				a tecnologia que foi usada para resolver tais problemas, se resolver um problema real, ela
+				é será uma solução bem vinda.</p>
+			</div>
+		</section>
+	</section>
+
+	<div id="projects">
+		<div class="overlay">
+		<div class="body-centered">
+		<section>
+			<h1 lang="en">A family that work <span class="together">together</span></h1>
+			<h1 lang="pt-BR">Uma familia que trabalha <span class="together">unida</span></h1>
+			
+			<div class="text" lang="pt-BR">
+				<p>Todos os voluntários já criaram 12 projetos que resolveram problemas reais em seus ambientes
+				de trabalho. Foi, com certeza, uma experiência recompensadora de troca de conhecimentos que gerou
+				grande valor em suas empresas e que gerou grandes amizades.</p>
+
+				<p>Antes de mais nada, resolvemos problemas reais. Na prática, são problemas que os desenvolvedores
+				enfrentam no trabalho (ou em seus projetos secudários). Por estarem todos empregados, essa abordagem
+				permitiu que os projetos fossem desenvolvidos sem a necessidade de angariar dinheiro. E por serem
+				problemas reais, estes softwares já estão todos rodando em produção, o que garante que eles recebam
+				atualizações constantes.</p>
+
+				<a class="pure-button pure-button-primary" href="http://github.com/skullabs">Confira nosso repositório!</a>
+			</div>
+			
+			<div class="text" lang="en">
+				<p>The all-volunteer at Skullab develops, stewards, and incubates more than 12 Open Source 
+				projects and initiatives that cover a wide range of technologies. Certainly, it was a very
+				rewarding knowledge sharing experience that have created great new friendships.</p>
+
+				<p>We only solves real world problems, it is, problems that people face at their workplace's
+				projects or their after work projects. This development metodology allowed us to create project
+				without any money donation. Also, once these projects are running under production and are
+				part of companies' development cycle, our project have constant updates.</p>
+
+				<a class="pure-button pure-button-primary" href="http://github.com/skullabs">Take a look at our Source Code repository!</a>
+			</div>
+		</section>
+		</div>
+		</div>
+	</div>
+
+	<section class="body-centered">
+		<section id="customers">
+			<h1 lang="en">Successfully solved real world problems at</h1>
+			<h1 lang="pt-BR">Problemas reais, resolvidos com sucesso, em</h1>
+			<div class="logos">
+				<img src="customer-thomson-reuters.png" />
+				<img src="customer-ibratan.png" />
+				<img src="customer-sizebay.png" />
+			</div>
+		</section>
+
+		<section id="call-to-action">
+			<a href="https://skullabs.mobilize.io/sign_in" lang="pt-BR" class="pure-button call-to-action">Faça parte deste time!</a>
+			<a href="https://skullabs.mobilize.io/sign_in" lang="en" class="pure-button call-to-action">Be part of this!</a>
+		</section>
+	</section>
+
+	<footer>
+		<div class="overlay">
+			<div class="body-centered">
+				<p>Skullabs Community - 2012~2015</p>
+				<p>Souce code available <a href="https://github.com/Skullabs/skullabs">here</a></p>
+			</div>
+		</div>
+	</footer>
+</body>
+
+</html> 
