@@ -1,2 +1,10 @@
 # Auto detect text files and perform LF normalization
 * text eol=lf
+
+# Forcing mime types
+*.png	binary
+*.ico	binary
+*.gif	binary
+*.jpg	binary
+*.jpeg	binary
+
